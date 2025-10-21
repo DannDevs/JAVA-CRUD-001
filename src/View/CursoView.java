@@ -4,6 +4,8 @@ import Controller.CursoController;
 import Controller.DisciplinaController;
 import Model.Disciplina;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CursoView {
@@ -31,14 +33,33 @@ public class CursoView {
                     System.out.println("Digite o CodCurso: ");
                     int idcurso = input.nextInt();
                     input.nextLine();
+
                     System.out.println("Digite o nome do curso");
                     String nome = input.nextLine();
+
                     System.out.println("Digite o Turno");
                     String turno = input.nextLine();
+//
+//                    List<Integer> disciplinas = new ArrayList<>();
+//                    int coddisciplina;
+//
+//                    do{
+//                        System.out.println("Digite o cod das Disciplinas, caso nao tenha mais digite 0 ");
+//                        int coddisciplina = input.nextInt();
+//
+//                        if (coddisciplina != 0 ) {
+//                            disciplinas.add(coddisciplina);
+//
+//                        }
+//                    } while (coddisciplina != 0);
                     cursoController.cadastrarCurso(idcurso,nome,turno);
                 }
                 case 2 -> cursoController.consultarCursos();
-                case 3 ->{}
+                case 3 ->{
+                    System.out.println("Digite o CodCurso a Remover: ");
+                    int codremover = input.nextInt();
+                    cursoController.removerCurso(codremover);
+                }
                 case 4 -> {
                     System.out.println("Digite 1 para Atualizar as disciplinas e 2 para Atualizar os Dados curso");
                     int opcaoa = input.nextInt();

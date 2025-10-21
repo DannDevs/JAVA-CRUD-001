@@ -2,6 +2,7 @@ package Controller;
 
 import DAO.CursoDAO;
 import Model.Curso;
+import Model.Disciplina;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ public class CursoController {
     private static final List<Curso> cursos = new ArrayList<>();
     CursoDAO  cursoDAO = new CursoDAO();
 
-    public void cadastrarCurso(int codcurso,String nomecurso,String turno) {
+    public void cadastrarCurso(int codcurso, String nomecurso, String turno) {
 
         if (validaCod(codcurso)) {
             System.out.println("Curso ja foi cadastrado");
@@ -87,6 +88,21 @@ public class CursoController {
     public void atualizarDisciplina(int codcurso,int coddisciplina){
 
     }
+
+    public void removerCurso(int codcurso){
+
+        Curso cursoremover = null;
+
+        for(Curso c : cursos){
+            if (c.getCodcurso() == codcurso){
+                cursoremover = c;
+            }
+        }
+        cursos.remove(cursoremover);
+        cursoDAO.deletar(cursoremover);
+        System.out.println("Curso removido com sucesso");
+    }
+
 
     public boolean validaCod(int codcurso){
             for(Curso c : cursos){

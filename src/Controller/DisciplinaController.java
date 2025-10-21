@@ -4,5 +4,4 @@ public class DisciplinaController {
 
     public void exibirDisciplinasDisponiveis(){
     }
-
 }
