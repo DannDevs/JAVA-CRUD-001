@@ -98,6 +98,12 @@ public class CursoController {
                 cursoremover = c;
             }
         }
+
+        if(cursoremover == null){
+            System.out.println("Nao existe o Curso com esse Codigo");
+            return;
+        }
+
         cursos.remove(cursoremover);
         cursoDAO.deletar(cursoremover);
         System.out.println("Curso removido com sucesso");

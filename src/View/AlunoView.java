@@ -10,7 +10,7 @@ public class AlunoView {
 
        AlunoController alunoController = new AlunoController();
        Scanner input = new Scanner(System.in);
-       int opcao = 0;
+       int opcao;
 
        do{
            System.out.println("=============");
@@ -79,9 +79,8 @@ public class AlunoView {
                        System.out.println("Essa matricula nao está no sistema!");
                    }
                }
-               case 5 ->{
-                   MenuView.menuExibir();
-               }
+               case 5 -> MenuView.menuExibir();
+
                default ->  System.out.println("Opcao invalida");
            }
 

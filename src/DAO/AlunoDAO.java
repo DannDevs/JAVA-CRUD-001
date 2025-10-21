@@ -13,9 +13,7 @@ public class AlunoDAO {
     public  void salvar(Aluno aluno) {
         System.out.println("Aluno cadastrado com sucesso!");
     }
-    public void listar(){
-
-    }
+    public void listar(){}
     public void deletar(Aluno aluno) {
         System.out.println("Deletado com sucesso!");
     }
