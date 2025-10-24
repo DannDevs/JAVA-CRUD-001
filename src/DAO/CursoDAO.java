@@ -1,6 +1,6 @@
-package main.DAO;
+package main.java.DAO;
 
-import main.Model.Curso;
+import main.java.Model.Curso;
 
 public class CursoDAO {
 

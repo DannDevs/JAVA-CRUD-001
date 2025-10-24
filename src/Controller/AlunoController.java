@@ -1,8 +1,8 @@
-package main.Controller;
+package main.java.Controller;
 
-import main.DAO.AlunoDAO;
-import main.Model.Aluno;
-import main.Model.Curso;
+import main.java.DAO.AlunoDAO;
+import main.java.Model.Aluno;
+import main.java.Model.Curso;
 
 import java.util.ArrayList;
 import java.util.List;

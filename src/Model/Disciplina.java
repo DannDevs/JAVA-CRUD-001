@@ -1,4 +1,4 @@
-package main.Model;
+package main.java.Model;
 
 public class Disciplina {
     private int coddisciplina;

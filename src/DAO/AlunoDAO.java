@@ -1,6 +1,6 @@
-package main.DAO;
+package main.java.DAO;
 
-import main.Model.Aluno;
+import main.java.Model.Aluno;
 
 import java.util.ArrayList;
 import java.util.List;
