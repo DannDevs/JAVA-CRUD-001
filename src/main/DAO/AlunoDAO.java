@@ -1,7 +1,6 @@
-package DAO;
+package main.DAO;
 
-import Model.Aluno;
-import Model.Curso;
+import main.Model.Aluno;
 
 import java.util.ArrayList;
 import java.util.List;

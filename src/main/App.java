@@ -1,4 +1,6 @@
-import View.MenuView;
+package main;
+
+import main.View.MenuView;
 
 public class App {
 

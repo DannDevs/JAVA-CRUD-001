@@ -1,6 +1,6 @@
-package DAO;
+package main.DAO;
 
-import Model.Curso;
+import main.Model.Curso;
 
 public class CursoDAO {
 

@@ -1,10 +1,8 @@
-package View;
+package main.View;
 
-import Controller.CursoController;
-import Controller.DisciplinaController;
-import Model.Disciplina;
-import java.util.ArrayList;
-import java.util.List;
+import main.Controller.CursoController;
+import main.Controller.DisciplinaController;
+
 import java.util.Scanner;
 
 public class CursoView {

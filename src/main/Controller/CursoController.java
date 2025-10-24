@@ -1,8 +1,7 @@
-package Controller;
+package main.Controller;
 
-import DAO.CursoDAO;
-import Model.Curso;
-import Model.Disciplina;
+import main.DAO.CursoDAO;
+import main.Model.Curso;
 
 import java.util.ArrayList;
 import java.util.List;
