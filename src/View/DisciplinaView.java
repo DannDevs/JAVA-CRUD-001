@@ -6,7 +6,7 @@ public class DisciplinaView {
 
     public void menuDisciplina(){
         Scanner sc = new Scanner(System.in);
-        int opcao = 0;
+        int opcao;
 
         do {
             System.out.println("=============");
@@ -24,9 +24,7 @@ public class DisciplinaView {
                 case 2 ->{}
                 case 3 ->{}
                 case 4 ->{}
-                case 5 ->{
-                    MenuView.menuExibir();
-                }
+                case 5 -> MenuView.menuExibir();
                 default ->  System.out.println("Opcao invalida");
             }
 

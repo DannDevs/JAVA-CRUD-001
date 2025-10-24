@@ -17,8 +17,6 @@ public class AlunoDAO {
     public void deletar(Aluno aluno) {
         System.out.println("Deletado com sucesso!");
     }
-    public void atualizar(Aluno aluno) {
-        System.out.println("Atualizado com sucesso!");
-    }
+    public void atualizar(Aluno aluno) { System.out.println("Atualizado com sucesso!"); }
 
 }

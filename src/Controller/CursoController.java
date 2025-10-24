@@ -34,9 +34,11 @@ public class CursoController {
     public void consultarCursos(){
         if(!cursos.isEmpty()){
             for (Curso c : cursos) {
+                System.out.println("===========");
                 System.out.println("Cod Curso: " + c.getCodcurso() );
                 System.out.println("Nome Curso: " + c.getNomecurso() );
                 System.out.println("Turno:" + c.getTurno() );
+                System.out.println("===========");
             }
         }
         else {

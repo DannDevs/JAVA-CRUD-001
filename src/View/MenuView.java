@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MenuView {
     public static void menuExibir() {
         Scanner sc = new Scanner(System.in);
-        int opcao = 0;
+        int opcao;
         do {
             System.out.println("==========");
             System.out.println("1. Gerenciar ALUNOS ");
