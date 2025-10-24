@@ -1,7 +1,7 @@
-package main.java.View;
+package View;
 
-import main.java.Controller.CursoController;
-import main.java.Controller.DisciplinaController;
+import Controller.CursoController;
+import Controller.DisciplinaController;
 
 import java.util.Scanner;
 

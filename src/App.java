@@ -1,12 +1,10 @@
-package main.java;
+import DAO.Conexao;
+import View.MenuView;
 
-import main.java.View.MenuView;
+void main() {
+    Conexao conexao  = new Conexao();
 
-public class App {
-
-     static void main() {
-        MenuView.menuExibir();
-    }
-
+    conexao.conectar();
+    MenuView.menuExibir();
 }
 

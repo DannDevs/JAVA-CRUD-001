@@ -1,7 +1,7 @@
-package main.java.View;
+package View;
 
-import main.java.Controller.AlunoController;
-import main.java.Controller.CursoController;
+import Controller.AlunoController;
+import Controller.CursoController;
 
 import java.util.Scanner;
 
@@ -17,7 +17,7 @@ public class AlunoView {
        do{
            System.out.println("=============");
            System.out.println("1 Cadastrar Aluno");
-           System.out.println("2 Consultar Aluno ");
+           System.out.println("2 Consultar Aluno");
            System.out.println("3 Remover Aluno");
            System.out.println("4 Atualizar Aluno ");
            System.out.println("5 Voltar ao Menu Inicial");

@@ -1,4 +1,4 @@
-package main.java.DAO;
+package DAO;
 
 public class DisciplinaDAO {
 }

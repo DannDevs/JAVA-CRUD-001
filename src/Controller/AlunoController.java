@@ -1,8 +1,8 @@
-package main.java.Controller;
+package Controller;
 
-import main.java.DAO.AlunoDAO;
-import main.java.Model.Aluno;
-import main.java.Model.Curso;
+import DAO.AlunoDAO;
+import Model.Aluno;
+import Model.Curso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,12 @@ public class AlunoController {
     }
 
     public void consultarAluno(){
-     if(!alunos.isEmpty()){
+
+        alunos.clear();
+        List<Aluno> alunosl = alunoDAO.listar();
+        alunos.addAll(alunosl);
+
+        if(!alunos.isEmpty()){
          for (Aluno aluno : alunos) {
              System.out.println("==============");
              System.out.println("Matricula: " + aluno.getMatricula());

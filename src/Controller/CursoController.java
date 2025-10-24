@@ -1,7 +1,7 @@
-package main.java.Controller;
+package Controller;
 
-import main.java.DAO.CursoDAO;
-import main.java.Model.Curso;
+import DAO.CursoDAO;
+import Model.Curso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +23,16 @@ public class CursoController {
             return;
         }
 
-        Curso novocurso =  new Curso(codcurso,nomecurso,turno);
+        Curso novocurso = new Curso(codcurso, nomecurso, turno);
         cursos.add(novocurso);
         cursoDAO.salvar(novocurso);
-        System.out.println("Curso cadastrado com sucesso");
-
     }
 
     public void consultarCursos(){
+        cursos.clear();
+        List<Curso> curso = cursoDAO.consultar();
+        cursos.addAll(curso);
+
         if(!cursos.isEmpty()){
             for (Curso c : cursos) {
                 System.out.println("===========");
