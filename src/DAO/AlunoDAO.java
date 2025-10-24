@@ -2,6 +2,7 @@ package DAO;
 
 import Model.Aluno;
 import Model.Curso;
+import libs.Conexao;
 
 
 import java.sql.Connection;

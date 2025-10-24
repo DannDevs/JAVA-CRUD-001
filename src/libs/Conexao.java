@@ -1,8 +1,8 @@
-package DAO;
+package libs;
 
 import java.sql.*;
 
-public class Conexao {
+public class Conexao{
 
     String url =  "jdbc:postgresql://192.168.200.171/datemp";
     String user = "admin";

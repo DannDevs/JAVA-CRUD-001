@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Curso;
+import libs.Conexao;
 
 
 import java.sql.Connection;

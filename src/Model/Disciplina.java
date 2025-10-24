@@ -1,37 +1,49 @@
 package Model;
 
-public class Disciplina {
-    private int coddisciplina;
-    private String nomedisciplina;
-    private int cargahorario;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Disciplina(int coddisciplina, String nomedisciplina, int cargahorario) {
+public class Disciplina {
+
+    private final int coddisciplina;
+    private  String nome;
+    private  int cargahoraria;
+    private List<Curso> cursos;
+
+
+    public Disciplina(int coddisciplina, String nome, int cargahoraria) {
         this.coddisciplina = coddisciplina;
-        this.cargahorario = cargahorario;
-        this.nomedisciplina = nomedisciplina;
+        this.nome = nome;
+        this.cargahoraria = cargahoraria;
+        this.cursos = new ArrayList<>();
+
     }
 
-    public int getCoddisciplina() {
+    public int getcoddisciplina() {
         return coddisciplina;
     }
-    public void setCoddisciplina(int coddisciplina) {
-        this.coddisciplina = coddisciplina;
+    public String getnome(){
+        return nome;
     }
-    public String getNomedisciplina() {
-        return nomedisciplina;
+    public int getcargahorario(){
+        return cargahoraria;
     }
-    public void setNomedisciplina(String nomedisciplina) {
-        this.nomedisciplina = nomedisciplina;
+    public void setcargahorario(int cargahoraria){
+        this.cargahoraria = cargahoraria;
     }
-    public int getCargahorario() {
-        return cargahorario;
+    public void setnome(String nome){
+        this.nome = nome;
     }
-    public void setCargahorario(int cargahorario) {
-        this.cargahorario = cargahorario;
+    public List<Curso> getcursos(){
+        return cursos;
     }
 
     @Override
     public String toString() {
-        return  coddisciplina + " " + nomedisciplina;
+        return  coddisciplina + " " + nome;
     }
 }
+
+
+
+
