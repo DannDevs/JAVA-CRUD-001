@@ -2,7 +2,10 @@ package View;
 
 import Controller.CursoController;
 import Controller.DisciplinaController;
+import Model.Disciplina;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CursoView {
@@ -36,20 +39,21 @@ public class CursoView {
 
                     System.out.println("Digite o Turno");
                     String turno = input.nextLine();
-//
-//                    List<Integer> disciplinas = new ArrayList<>();
-//                    int coddisciplina;
-//
-//                    do{
-//                        System.out.println("Digite o cod das Disciplinas, caso nao tenha mais digite 0 ");
-//                        int coddisciplina = input.nextInt();
-//
-//                        if (coddisciplina != 0 ) {
-//                            disciplinas.add(coddisciplina);
-//
-//                        }
-//                    } while (coddisciplina != 0);
-                    cursoController.cadastrarCurso(idcurso,nome,turno);
+
+                    List<Disciplina> disciplinas = new ArrayList<>();
+                    int coddisciplina;
+
+                    do{
+                        System.out.println("Digite o cod das Disciplinas, caso nao tenha mais digite 0 ");
+                        coddisciplina = input.nextInt();
+
+                        if (coddisciplina != 0 ) {
+                            Disciplina d = new Disciplina(coddisciplina,null,0);
+                            disciplinas.add(d);
+
+                        }
+                    } while (coddisciplina != 0);
+                    cursoController.cadastrarCurso(idcurso,nome,turno,disciplinas);
                 }
                 case 2 -> cursoController.consultarCursos();
                 case 3 ->{
@@ -73,7 +77,7 @@ public class CursoView {
                             System.out.println("Digite o codigo da disciplina a atualizar");
                             int coddisciplina = input.nextInt();
                             System.out.println("Disciplinas disponiveis: ");
-                            disciplinaController.exibirDisciplinasDisponiveis();
+                            //disciplinaController.exibirDisciplinasDisponiveis();
                             cursoController.atualizarDisciplina(codcurso,coddisciplina);
                         }
                         case 2 -> {

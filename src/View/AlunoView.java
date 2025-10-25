@@ -21,7 +21,6 @@ public class AlunoView {
            System.out.println("3 Remover Aluno");
            System.out.println("4 Atualizar Aluno ");
            System.out.println("5 Voltar ao Menu Inicial");
-           System.out.println("6 CADASTRAR FORÇADO / TESTES ");
            System.out.println("=============");
            System.out.print("Opcao: ");
            opcao = input.nextInt();
@@ -109,10 +108,6 @@ public class AlunoView {
                    }
                }
                case 5 -> MenuView.menuExibir();
-               case 6 -> {
-                   cursoController.cadastrarCurso(1,"POO","Manha");
-                   alunoController.cadastrarAluno(1,"Daniel",14,1);
-               }
 
                default ->  System.out.println("Opcao invalida");
            }

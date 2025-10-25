@@ -9,6 +9,7 @@ import java.sql.*;
 public class DisciplinaDAO {
 
 
+
     public void salvar(Disciplina disciplina){
 
         String sql = "INSERT INTO disciplina (coddisciplina, nome, cargahoraria) VALUES (?, ?, ?) ";
@@ -20,7 +21,8 @@ public class DisciplinaDAO {
             stmt.setString(2, disciplina.getnome());
             stmt.setInt(3,disciplina.getcargahorario());
             stmt.executeUpdate();
-            System.out.println("Disciplina Salvo com sucesso!");
+
+            System.out.println("Disciplina Salva com sucesso!");
         }
         catch (SQLException ex){
             System.out.println("Erro ao salvar Disciplina: " + ex.getMessage());
@@ -36,6 +38,7 @@ public class DisciplinaDAO {
                 stmt.setInt(2,disciplina.getcargahorario());
                 stmt.setInt(3,disciplina.getcoddisciplina());
                 stmt.executeUpdate();
+                System.out.println("Disciplina Atualizada com sucesso");
             }
         }
         catch (SQLException e){
@@ -43,6 +46,33 @@ public class DisciplinaDAO {
         }
 
     }
+
+    public Disciplina consultarDisciplina(int codDisciplina) {
+        String sql = "SELECT * FROM disciplina WHERE coddisciplina = ?";
+        Disciplina disciplina = null;
+
+        try (Connection connection = new Conexao().conectar();
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, codDisciplina);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                disciplina = new Disciplina(
+                        rs.getInt("coddisciplina"),
+                        rs.getString("nome"),
+                        rs.getInt("cargahoraria")
+                );
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao consultar Disciplina: " + ex.getMessage());
+        }
+
+        return disciplina;
+    }
+
 
     public List<Disciplina> consultar() {
         String sql = "SELECT * FROM disciplina";
@@ -59,6 +89,7 @@ public class DisciplinaDAO {
                             rs.getInt("cargahoraria")
                     );
                     disciplinas.add(d);
+
                 }
           } catch (SQLException e){
             throw new RuntimeException("Erro ao Consultar" + e.getMessage());
@@ -73,6 +104,7 @@ public class DisciplinaDAO {
              PreparedStatement stmt = conn.prepareStatement(sql);) {
             stmt.setInt(1, codDisciplina);
             stmt.execute();
+            System.out.println("Disciplina excluida com sucesso");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao Excluir " + e.getMessage());
         }

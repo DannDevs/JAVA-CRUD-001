@@ -13,11 +13,14 @@ public class DisciplinaController {
     DisciplinaDAO dao = new DisciplinaDAO();
 
     public void cadastrardisciplina(int codDisciplina, String nomeDisciplina, int cargahoraria){
+
+        atualizaLista();
+
         if(validaNome(nomeDisciplina)){
             System.out.println("O nome  e invalido");
             return;
         }
-        if(!validaCod(codDisciplina)){
+        if(codExiste(codDisciplina)){
             System.out.println("Codigo da disciplina ja foi usado");
             return;
         }
@@ -26,20 +29,20 @@ public class DisciplinaController {
             return;
         }
         Disciplina novadisciplina = new Disciplina(codDisciplina,nomeDisciplina,cargahoraria);
-        disciplina.add(novadisciplina);
         dao.salvar(novadisciplina);
-        System.out.println("Disciplina cadastrada com sucesso");
+
     }
 
     public void consultarDisciplina() {
         List<Disciplina> listaDisciplinas = dao.consultar();
+
         if (!listaDisciplinas.isEmpty()) {
             try {
                 for(Disciplina d : listaDisciplinas){
                     System.out.println("============");
                     System.out.println("Codigo: " + d.getcoddisciplina());
                     System.out.println("Nome: " + d.getnome());
-                    System.out.println(" Horario: " + d.getcargahorario());
+                    System.out.println("Horario: " + d.getcargahorario());
                     System.out.println("============");
                 }
 
@@ -63,7 +66,7 @@ public class DisciplinaController {
         if (!listaDisciplinas.isEmpty()) {
             try {
                 for(Disciplina d : listaDisciplinas ){
-                    System.out.print(d.getcoddisciplina() + ", ");
+                    System.out.print(d.getcoddisciplina() + " ");
                     disciplina.clear();
                     disciplina.addAll(listaDisciplinas);
                 }
@@ -77,6 +80,8 @@ public class DisciplinaController {
 
     public void atualizarDisciplina(int codigo,String nomeDisciplina, int cargahoraria) {
 
+        List<Disciplina> listaDisciplinas = dao.consultar();
+
         if(validaNome(nomeDisciplina)){
             System.out.println("O nome Atualizado e invalido");
             return;
@@ -88,20 +93,18 @@ public class DisciplinaController {
 
         Disciplina disciplinaexistente = null;
 
-        for(Disciplina d : disciplina ){
+        for(Disciplina d : listaDisciplinas ){
             if(d.getcoddisciplina() == codigo ){
                 disciplinaexistente = d;
                 break;
             }
         }
-
         if(disciplinaexistente == null){
             System.out.println("Nenhum disciplina encontrada");
         }
         else {
             disciplinaexistente.setnome(nomeDisciplina);
             disciplinaexistente.setcargahorario(cargahoraria);
-            System.out.println( disciplinaexistente.getcoddisciplina() + " atualizado com sucesso" );
             dao.atualizar(disciplinaexistente);
         }
 
@@ -110,13 +113,14 @@ public class DisciplinaController {
 
     public void deletarDisciplina(int codigo){
         atualizaLista();
-        if(codExiste(codigo)){
-            List<Disciplina> listaDisciplina = dao.consultar();
+        List<Disciplina> listaDisciplina = dao.consultar();
+
+        if(!codExiste(codigo)){
+
             for(Disciplina d : listaDisciplina ){
                 if(d.getcoddisciplina() == codigo){
                     dao.excluir(codigo);
                     disciplina.remove(codigo);
-                    System.out.println("Disciplina removida com sucesso");
                 }
             }
         }
@@ -136,20 +140,7 @@ public class DisciplinaController {
         return nome == null || nome.isEmpty();
     }
 
-    public boolean validaCod(int codDisciplina) {
-        // código inválido se <= 0
-        if (codDisciplina <= 0) {
-            return false;
-        }
-        // código inválido se já existir
-        for (Disciplina d : disciplina) {
-            if (d.getcoddisciplina() == codDisciplina) {
-                return false;
-            }
-        }
-        // código válido
-        return true;
-    }
+    public boolean validaCod(int codDisciplina) { return codDisciplina >= 0; }
 
     public boolean codExiste(int codigodisciplina) {
         for (Disciplina d : disciplina) {
@@ -158,8 +149,8 @@ public class DisciplinaController {
         return false;
     }
 
-    public boolean validaCargaHorario(int carga){
-        return carga <= 0;
-    }
+
+
+    public boolean validaCargaHorario(int carga) {return carga <= 0;  }
 
 }

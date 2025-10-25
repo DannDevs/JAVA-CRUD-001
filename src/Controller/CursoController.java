@@ -1,18 +1,20 @@
 package Controller;
 
 import DAO.CursoDAO;
+import DAO.DisciplinaDAO;
 import Model.Curso;
+import Model.Disciplina;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CursoController {
 
-
     private static final List<Curso> cursos = new ArrayList<>();
     CursoDAO  cursoDAO = new CursoDAO();
+    DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
-    public void cadastrarCurso(int codcurso, String nomecurso, String turno) {
+    public void cadastrarCurso(int codcurso, String nomecurso, String turno,List<Disciplina> disciplinas) {
 
         if (validaCod(codcurso)) {
             System.out.println("Curso ja foi cadastrado");
@@ -22,8 +24,15 @@ public class CursoController {
             System.out.println("Nome invalido");
             return;
         }
+        for (Disciplina d : disciplinas) {
+            if(disciplinaDAO.consultarDisciplina(d.getcoddisciplina()) != null){
+                System.out.println("Disciplina ja foi cadastrado");
+            }
+
+        }
 
         Curso novocurso = new Curso(codcurso, nomecurso, turno);
+        novocurso.setDisciplinas(disciplinas);
         cursos.add(novocurso);
         cursoDAO.salvar(novocurso);
     }

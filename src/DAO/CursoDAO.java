@@ -1,6 +1,8 @@
 package DAO;
 
 import Model.Curso;
+import Model.CursoDisciplina;
+import Model.Disciplina;
 import libs.Conexao;
 
 
@@ -22,14 +24,21 @@ public class CursoDAO {
             stmt.setInt(1, curso.getCodcurso());
             stmt.setString(2, curso.getNomecurso());
             stmt.setString(3, curso.getTurno());
-
             stmt.executeUpdate();
+
+            CursoDisciplinaDAO cursoDisciplinaDAO = new CursoDisciplinaDAO();
+            for (Disciplina d : curso.getDisciplinas()){
+                cursoDisciplinaDAO.adicionarCursoDisciplina(curso.getCodcurso(),d.getcoddisciplina());
+            }
             System.out.println("Curso cadastrado com sucesso");
 
         } catch(SQLException ex){
             throw new RuntimeException("Erro ao inserir: " + ex.getMessage());
         }
     }
+
+
+
     public List<Curso> consultar(){
         String sql =  "SELECT codcurso,nome,turno FROM curso";
         List<Curso> cursos = new ArrayList<>();

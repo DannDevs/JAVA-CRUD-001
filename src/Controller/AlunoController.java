@@ -3,6 +3,7 @@ package Controller;
 import DAO.AlunoDAO;
 import Model.Aluno;
 import Model.Curso;
+import Model.Disciplina;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,7 @@ public class AlunoController {
 
     public void consultarAluno(){
 
-        alunos.clear();
-        List<Aluno> alunosl = alunoDAO.listar();
-        alunos.addAll(alunosl);
+       atualizalista();
 
         if(!alunos.isEmpty()){
          for (Aluno aluno : alunos) {
@@ -147,6 +146,14 @@ public class AlunoController {
             }
         }
         return false;
+    }
+
+    public void atualizalista(){
+
+        List<Aluno> alunosa =  alunoDAO.listar();
+        alunos.clear();
+        alunos.addAll(alunosa);
+
     }
 
     public boolean validaMatricula(int matricula){ return matricula > 0; }
