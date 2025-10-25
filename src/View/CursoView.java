@@ -31,20 +31,23 @@ public class CursoView {
             switch(opcao){
                 case 1 ->{
                     System.out.println("Digite o CodCurso: ");
+                    System.out.print("-> ");
                     int idcurso = input.nextInt();
                     input.nextLine();
 
                     System.out.println("Digite o nome do curso");
+                    System.out.print("-> ");
                     String nome = input.nextLine();
 
                     System.out.println("Digite o Turno");
+                    System.out.print("-> ");
                     String turno = input.nextLine();
 
                     List<Disciplina> disciplinas = new ArrayList<>();
                     int coddisciplina;
 
                     do{
-                        System.out.println("Digite o cod das Disciplinas, caso nao tenha mais digite 0 ");
+                        System.out.println("Digite o codigo das Disciplina, caso nao tenha mais digite 0 ");
                         coddisciplina = input.nextInt();
 
                         if (coddisciplina != 0 ) {
@@ -58,6 +61,7 @@ public class CursoView {
                 case 2 -> cursoController.consultarCursos();
                 case 3 ->{
                     System.out.println("Digite o Cod Curso a Remover: ");
+                    System.out.print("-> ");
                     int codremover = input.nextInt();
                     if (!cursoController.validaCod(codremover)){
                         System.out.println("Curso nao está no sistema");
@@ -67,14 +71,17 @@ public class CursoView {
                 }
                 case 4 -> {
                     System.out.println("Digite 1 para Atualizar as disciplinas e 2 para Atualizar os Dados curso");
+                    System.out.print("-> ");
                     int opcaoa = input.nextInt();
                     switch(opcaoa){
 
                         case 1 -> {
 
                             System.out.println("Digite o CodCurso a ser Atualizado:");
+                            System.out.print("-> ");
                             int codcurso = input.nextInt();
                             System.out.println("Digite o codigo da disciplina a atualizar");
+                            System.out.print("-> ");
                             int coddisciplina = input.nextInt();
                             System.out.println("Disciplinas disponiveis: ");
                             //disciplinaController.exibirDisciplinasDisponiveis();
@@ -83,10 +90,13 @@ public class CursoView {
                         case 2 -> {
 
                             System.out.println("Digite o CodCurso a ser Atualizado:");
+                            System.out.print("-> ");
                             int codcurso = input.nextInt();
                             System.out.println("Digite o novo nome do curso");
+                            System.out.print("-> ");
                             String nome = input.nextLine();
                             System.out.println("Digite o novo turno:");
+                            System.out.print("-> ");
                             String turno = input.nextLine();
                             cursoController.atualizarCurso(codcurso,nome,turno);
                         }

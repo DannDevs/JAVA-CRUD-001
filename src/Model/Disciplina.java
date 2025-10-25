@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Disciplina {
 
-    private final int coddisciplina;
+    private int coddisciplina;
     private  String nome;
     private  int cargahoraria;
     private List<Curso> cursos;
@@ -19,9 +19,7 @@ public class Disciplina {
 
     }
 
-    public int getcoddisciplina() {
-        return coddisciplina;
-    }
+    public int getcoddisciplina() { return coddisciplina; }
     public String getnome(){
         return nome;
     }
@@ -34,13 +32,11 @@ public class Disciplina {
     public void setnome(String nome){
         this.nome = nome;
     }
-    public List<Curso> getcursos(){
-        return cursos;
-    }
+    public List<Curso> getcursos(){ return cursos; }
 
     @Override
     public String toString() {
-        return  coddisciplina + " " + nome;
+        return nome;
     }
 }
 

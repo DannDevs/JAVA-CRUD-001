@@ -40,7 +40,11 @@ public class CursoDAO {
 
 
     public List<Curso> consultar(){
-        String sql =  "SELECT codcurso,nome,turno FROM curso";
+        String sql =  "select c.codcurso,c.nome as nomecurso," +
+                "turno,d.coddisciplina,d.nome as nomedisciplina," +
+                "d.cargahoraria from curso c " +
+                "join cursodisciplina e on c.codcurso = e.codcurso " +
+                "join disciplina d on d.coddisciplina = e.coddisciplina";
         List<Curso> cursos = new ArrayList<>();
 
         try(Connection conn = new Conexao().conectar();
@@ -50,9 +54,15 @@ public class CursoDAO {
             while(rs.next()){
                 Curso curso = new Curso(
                         rs.getInt("codcurso"),
-                        rs.getString("nome"),
+                        rs.getString("nomecurso"),
                         rs.getString("turno")
                 );
+                Disciplina disciplina = new Disciplina(
+                        rs.getInt("coddisciplina"),
+                        rs.getString("nomedisciplina"),
+                        rs.getInt("cargahoraria")
+                );
+                curso.adicionardisciplina(disciplina);
                 cursos.add(curso);
             }
 

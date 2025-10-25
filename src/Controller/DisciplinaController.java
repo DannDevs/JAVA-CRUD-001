@@ -10,6 +10,7 @@ import java.util.List;
 public class DisciplinaController {
 
     private final List<Disciplina> disciplina = new ArrayList<>();
+
     DisciplinaDAO dao = new DisciplinaDAO();
 
     public void cadastrardisciplina(int codDisciplina, String nomeDisciplina, int cargahoraria){
@@ -34,41 +35,36 @@ public class DisciplinaController {
     }
 
     public void consultarDisciplina() {
-        List<Disciplina> listaDisciplinas = dao.consultar();
+        atualizaLista();
 
-        if (!listaDisciplinas.isEmpty()) {
+        if (!disciplina.isEmpty()) {
             try {
-                for(Disciplina d : listaDisciplinas){
+                for(Disciplina d : disciplina){
                     System.out.println("============");
                     System.out.println("Codigo: " + d.getcoddisciplina());
                     System.out.println("Nome: " + d.getnome());
                     System.out.println("Horario: " + d.getcargahorario());
                     System.out.println("============");
                 }
-
-                disciplina.clear();
-                disciplina.addAll(listaDisciplinas);
             }
             catch (Exception e) {
                 System.out.println("Erro ao consultar disciplina");
             }
         }
         else{
-            System.out.println("Nenhum disciplina encontrada");
+            System.out.println("Nenhuma disciplina encontrada");
         }
     }
 
 
     public void consultarCodigos(){
 
-        List<Disciplina> listaDisciplinas = dao.consultar();
+        atualizaLista();
 
-        if (!listaDisciplinas.isEmpty()) {
+        if (!disciplina.isEmpty()) {
             try {
-                for(Disciplina d : listaDisciplinas ){
+                for(Disciplina d : disciplina ){
                     System.out.print(d.getcoddisciplina() + " ");
-                    disciplina.clear();
-                    disciplina.addAll(listaDisciplinas);
                 }
             }
             catch (Exception e) {
@@ -80,9 +76,13 @@ public class DisciplinaController {
 
     public void atualizarDisciplina(int codigo,String nomeDisciplina, int cargahoraria) {
 
-        List<Disciplina> listaDisciplinas = dao.consultar();
+       atualizaLista();
 
-        if(validaNome(nomeDisciplina)){
+       if (!codExiste(codigo)) {
+           System.out.println("Codigo da disciplina nao existe");
+           return;
+       }
+       if(validaNome(nomeDisciplina)){
             System.out.println("O nome Atualizado e invalido");
             return;
         }
@@ -93,14 +93,14 @@ public class DisciplinaController {
 
         Disciplina disciplinaexistente = null;
 
-        for(Disciplina d : listaDisciplinas ){
+        for(Disciplina d : disciplina ){
             if(d.getcoddisciplina() == codigo ){
                 disciplinaexistente = d;
                 break;
             }
         }
         if(disciplinaexistente == null){
-            System.out.println("Nenhum disciplina encontrada");
+            System.out.println("Nenhuma disciplina encontrada");
         }
         else {
             disciplinaexistente.setnome(nomeDisciplina);
@@ -110,31 +110,31 @@ public class DisciplinaController {
 
     }
 
-
     public void deletarDisciplina(int codigo){
+
         atualizaLista();
-        List<Disciplina> listaDisciplina = dao.consultar();
 
-        if(!codExiste(codigo)){
-
-            for(Disciplina d : listaDisciplina ){
+        if(codExiste(codigo)){
+            for(Disciplina d : disciplina ){
                 if(d.getcoddisciplina() == codigo){
                     dao.excluir(codigo);
-                    disciplina.remove(codigo);
                 }
             }
         }
         else {
-            System.out.println("Nenhum disciplina encontrada");
+            System.out.println("Nenhuma disciplina encontrada");
         }
     }
 
+    // ATUALIZAR A LISTA GLOBAL
+
     public void atualizaLista(){
-        List<Disciplina> disciplinas =  dao.consultar();
+        List<Disciplina> listaDisciplina = dao.consultar();
         disciplina.clear();
-        disciplina.addAll(disciplinas);
+        disciplina.addAll(listaDisciplina);
     }
 
+    // VALIDADORES
 
     public boolean validaNome(String nome) {
         return nome == null || nome.isEmpty();
@@ -142,15 +142,16 @@ public class DisciplinaController {
 
     public boolean validaCod(int codDisciplina) { return codDisciplina >= 0; }
 
-    public boolean codExiste(int codigodisciplina) {
-        for (Disciplina d : disciplina) {
-            return d.getcoddisciplina() == codigodisciplina;
-        }
-        return false;
-    }
-
-
-
     public boolean validaCargaHorario(int carga) {return carga <= 0;  }
 
+    public boolean codExiste(int codigodisciplina) {
+
+        List<Disciplina> listaDisciplina = dao.consultar();
+
+        for (Disciplina d : listaDisciplina ) {
+            if (codigodisciplina == d.getcoddisciplina()) {
+                return true;
+            }
+        } return false;
+    }
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curso {
@@ -13,6 +14,13 @@ public class Curso {
         this.codcurso= codcurso;
         this.nomecurso = nomecurso;
         this.turno = turno;
+        this.disciplinas = new ArrayList<>();
+    }
+    public void adicionardisciplina(Disciplina disciplina){
+        if(disciplinas==null){
+            disciplinas = new ArrayList<>();
+        }
+        disciplinas.add(disciplina);
     }
 
     public int getCodcurso() {

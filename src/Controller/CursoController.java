@@ -48,6 +48,7 @@ public class CursoController {
                 System.out.println("Cod Curso: " + c.getCodcurso() );
                 System.out.println("Nome Curso: " + c.getNomecurso() );
                 System.out.println("Turno:" + c.getTurno() );
+                System.out.println("Disciplina: " + c.getDisciplinas() );
                 System.out.println("===========");
             }
         }

@@ -54,7 +54,7 @@ public class DisciplinaView {
                     System.out.println("Digite o Codigo da disciplina a ser excluida");
                     System.out.print("-> ");
                     int codigo = sc.nextInt();
-                    if(disciplinaController.codExiste(codigo)){
+                    if(!disciplinaController.codExiste(codigo)){
                         System.out.println("Cod da disciplina nao existe");
                         break;
                     }
@@ -68,7 +68,7 @@ public class DisciplinaView {
                     System.out.println("Digite o Codigo da disciplina:");
                     System.out.print("-> ");
                     int codigo = sc.nextInt();
-                    if(disciplinaController.codExiste(codigo)){
+                    if(!disciplinaController.codExiste(codigo)){
                         System.out.println("Cod Disciplina nao existe");
                         break;
                     }
