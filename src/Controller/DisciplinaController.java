@@ -64,7 +64,7 @@ public class DisciplinaController {
         if (!disciplina.isEmpty()) {
             try {
                 for(Disciplina d : disciplina ){
-                    System.out.print(d.getcoddisciplina() + " ");
+                    System.out.print( " - " + d.getcoddisciplina());
                 }
             }
             catch (Exception e) {

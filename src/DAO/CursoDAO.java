@@ -1,7 +1,6 @@
 package DAO;
 
 import Model.Curso;
-import Model.CursoDisciplina;
 import Model.Disciplina;
 import libs.Conexao;
 
@@ -28,7 +27,7 @@ public class CursoDAO {
 
             CursoDisciplinaDAO cursoDisciplinaDAO = new CursoDisciplinaDAO();
             for (Disciplina d : curso.getDisciplinas()){
-                cursoDisciplinaDAO.adicionarCursoDisciplina(curso.getCodcurso(),d.getcoddisciplina());
+                cursoDisciplinaDAO.adicionarCursoDisciplina(d.getcoddisciplina(),curso.getCodcurso());
             }
             System.out.println("Curso cadastrado com sucesso");
 
@@ -40,11 +39,12 @@ public class CursoDAO {
 
 
     public List<Curso> consultar(){
-        String sql =  "select c.codcurso,c.nome as nomecurso," +
-                "turno,d.coddisciplina,d.nome as nomedisciplina," +
-                "d.cargahoraria from curso c " +
-                "join cursodisciplina e on c.codcurso = e.codcurso " +
-                "join disciplina d on d.coddisciplina = e.coddisciplina";
+
+        String sql = "SELECT c.codcurso, c.nome AS nomecurso, c.turno, GROUP_CONCAT(CONCAT(d.coddisciplina, ' - ', d.nome) SEPARATOR ', ') AS disciplinas" +
+        "FROM curso c " +
+        "JOIN cursodisciplina e ON c.codcurso = e.codcurso " +
+        "JOIN disciplina d ON d.coddisciplina = e.coddisciplina " +
+        "GROUP BY c.codcurso, c.nome, c.turno";
         List<Curso> cursos = new ArrayList<>();
 
         try(Connection conn = new Conexao().conectar();

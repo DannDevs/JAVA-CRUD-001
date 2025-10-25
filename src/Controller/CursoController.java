@@ -16,6 +16,8 @@ public class CursoController {
 
     public void cadastrarCurso(int codcurso, String nomecurso, String turno,List<Disciplina> disciplinas) {
 
+        atualizarLista();
+
         if (validaCod(codcurso)) {
             System.out.println("Curso ja foi cadastrado");
             return;
@@ -25,22 +27,19 @@ public class CursoController {
             return;
         }
         for (Disciplina d : disciplinas) {
-            if(disciplinaDAO.consultarDisciplina(d.getcoddisciplina()) != null){
+            if(disciplinaDAO.consultarDisciplina(d.getcoddisciplina()) == null){
                 System.out.println("Disciplina ja foi cadastrado");
             }
-
         }
 
         Curso novocurso = new Curso(codcurso, nomecurso, turno);
         novocurso.setDisciplinas(disciplinas);
-        cursos.add(novocurso);
         cursoDAO.salvar(novocurso);
     }
 
     public void consultarCursos(){
-        cursos.clear();
-        List<Curso> curso = cursoDAO.consultar();
-        cursos.addAll(curso);
+
+        atualizarLista();
 
         if(!cursos.isEmpty()){
             for (Curso c : cursos) {
@@ -48,7 +47,11 @@ public class CursoController {
                 System.out.println("Cod Curso: " + c.getCodcurso() );
                 System.out.println("Nome Curso: " + c.getNomecurso() );
                 System.out.println("Turno:" + c.getTurno() );
-                System.out.println("Disciplina: " + c.getDisciplinas() );
+                System.out.println("Disciplina: ");
+
+                for(Disciplina d : c.getDisciplinas()) {
+                    System.out.print("  -" + d.getcoddisciplina());
+                }
                 System.out.println("===========");
             }
         }
@@ -57,27 +60,9 @@ public class CursoController {
         }
     }
 
-    public void exibecoddisponiveis(){
-        if(!cursos.isEmpty()){
-            for(Curso c : cursos){
-                System.out.println(c.getCodcurso());
-            }
-        }
-        else {
-            System.out.println(" ");
-        }
-    }
-
-    public Curso consultarcodigocurso(int codigo){
-        for(Curso c : cursos){
-            if (c.getCodcurso() == codigo){
-                return c;
-            }
-        }
-        return null;
-    }
-
     public void atualizarCurso(int codcurso,String nome,String turno) {
+
+        atualizarLista();
 
         if (validaCod(codcurso)) {
             System.out.println("Curso nao existe");
@@ -91,6 +76,11 @@ public class CursoController {
             if (c.getCodcurso() == codcurso){
                 cursoatualizar = c;
             }
+        }
+
+        if (cursoatualizar == null) {
+            System.out.println("Curso nao existe");
+            return;
         }
 
         cursoatualizar.setNomecurso(nome);
@@ -122,6 +112,36 @@ public class CursoController {
         System.out.println("Curso removido com sucesso");
     }
 
+    public void exibecoddisponiveis(){
+        if(!cursos.isEmpty()){
+            for(Curso c : cursos){
+                System.out.println(c.getCodcurso());
+            }
+        }
+        else {
+            System.out.println(" ");
+        }
+    }
+
+    public Curso consultarcodigocurso(int codigo){
+        for(Curso c : cursos){
+            if (c.getCodcurso() == codigo){
+                return c;
+            }
+        }
+        return null;
+    }
+
+    // ATUALIZA LISTA
+
+    public void atualizarLista(){
+        List<Curso> listaCursos = cursoDAO.consultar();
+        cursos.clear();
+        cursos.addAll(listaCursos);
+    }
+
+
+    // VALIDATES
 
     public boolean validaCod(int codcurso){
             for(Curso c : cursos){
@@ -131,8 +151,6 @@ public class CursoController {
             }
         return false;
     }
-    public boolean validaNome(String nome){
-        return nome == null || nome.isEmpty();
-    }
+    public boolean validaNome(String nome){ return nome == null || nome.isEmpty();}
 
 }
