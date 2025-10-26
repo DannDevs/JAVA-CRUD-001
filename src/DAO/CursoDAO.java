@@ -40,30 +40,54 @@ public class CursoDAO {
 
     public List<Curso> consultar(){
 
-        String sql = "SELECT c.codcurso, c.nome AS nomecurso, c.turno, GROUP_CONCAT(CONCAT(d.coddisciplina, ' - ', d.nome) SEPARATOR ', ') AS disciplinas" +
-        "FROM curso c " +
-        "JOIN cursodisciplina e ON c.codcurso = e.codcurso " +
-        "JOIN disciplina d ON d.coddisciplina = e.coddisciplina " +
-        "GROUP BY c.codcurso, c.nome, c.turno";
+        String sql =  "SELECT " +
+                "c.codcurso, " +
+                "c.nome AS nomecurso, " +
+                "c.turno, " +
+                "d.coddisciplina, " +
+                "d.nome AS nomedisciplina, " +
+                "d.cargahoraria " +
+                "FROM curso c " +
+                "JOIN cursodisciplina e ON c.codcurso = e.codcurso " +
+                "JOIN disciplina d ON d.coddisciplina = e.coddisciplina " +
+                "ORDER BY c.codcurso";
+
+
         List<Curso> cursos = new ArrayList<>();
 
         try(Connection conn = new Conexao().conectar();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery())
         {
-            while(rs.next()){
-                Curso curso = new Curso(
-                        rs.getInt("codcurso"),
-                        rs.getString("nomecurso"),
-                        rs.getString("turno")
-                );
+            Curso cursoAtual = null;
+            int ultimoCodCurso = -1;
+
+            while (rs.next()) {
+                int codCurso = rs.getInt("codcurso");
+
+                // Se mudou de curso, cria um novo objeto Curso
+                if (codCurso != ultimoCodCurso) {
+                    cursoAtual = new Curso(
+                            codCurso,
+                            rs.getString("nomecurso"),
+                            rs.getString("turno")
+                    );
+                    cursos.add(cursoAtual);
+                    ultimoCodCurso = codCurso;
+                }
                 Disciplina disciplina = new Disciplina(
                         rs.getInt("coddisciplina"),
                         rs.getString("nomedisciplina"),
                         rs.getInt("cargahoraria")
                 );
-                curso.adicionardisciplina(disciplina);
-                cursos.add(curso);
+
+                if (cursoAtual == null) {
+                    System.out.println("ERR");
+                    break;
+                }
+
+                cursoAtual.adicionardisciplina(disciplina);
+                cursos.add(cursoAtual);
             }
 
         }

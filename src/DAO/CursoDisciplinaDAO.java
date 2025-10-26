@@ -30,8 +30,8 @@ public class CursoDisciplinaDAO {
         try(Connection conn = new Conexao().conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)
                 ){
-            stmt.setInt(1,disciplina);
-            stmt.setInt(2,curso);
+            stmt.setInt(1,curso);
+            stmt.setInt(2,disciplina);
             stmt.execute();
 
         } catch (SQLException ex){

@@ -52,8 +52,6 @@ public class Curso {
     public void setDisciplinas(List<Disciplina> disciplinas) { this.disciplinas = disciplinas; }
 
     @Override
-    public String toString() {
-        return nomecurso;
-    }
+    public String toString() { return codcurso + " " + nomecurso; }
 
 }

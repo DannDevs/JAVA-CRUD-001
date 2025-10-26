@@ -59,15 +59,66 @@ public class AlunoDAO {
                 );
                 alunos.add(aluno);
             }
-
         } catch (SQLException ex){
             throw new RuntimeException("Erro ao listar alunos: " + ex.getMessage() );
         }
         return alunos;
     }
     public void deletar(Aluno aluno) {
+
+        String sql = "DELETE FROM aluno where matricula = ?";
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setInt(1, aluno.getMatricula());
+            stmt.executeUpdate();
+        } catch (SQLException ex){
+            throw new RuntimeException("Erro ao deletar aluno" + ex.getMessage() );
+        }
         System.out.println("Deletado com sucesso!");
     }
-   public void atualizar(Aluno aluno) { System.out.println("Atualizado com sucesso!"); }
+    public void atualizarCursoAluno(Aluno aluno) {
+
+        String sql = "UPDATE aluno " +
+                "SET fkcurso = ? "+
+                "WHERE matricula = ? " ;
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setInt(1, aluno.getCurso().getCodcurso());
+            stmt.setInt(2, aluno.getMatricula());
+
+            stmt.executeUpdate();
+            System.out.println("Curso do Aluno Atualizado com sucesso!");
+
+        } catch (SQLException ex){
+            throw new RuntimeException("Erro ao atualizar aluno: " + ex.getMessage() );
+        }
+    }
+
+    public void atualizar(Aluno aluno) {
+        String sql = "UPDATE aluno " +
+                "SET nome = ? , idade = ? WHERE matricula = ? ";
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setString(1, aluno.getNomeAluno());
+            stmt.setInt(2, aluno.getIdade());
+            stmt.setInt(3, aluno.getMatricula());
+
+            stmt.executeUpdate();
+            System.out.println("Aluno Atualizado com sucesso!");
+
+        }catch (SQLException ex){
+            throw new RuntimeException("Erro ao atualizar aluno: " + ex.getMessage() );
+        }
+    }
+
+
+
+
 
 }

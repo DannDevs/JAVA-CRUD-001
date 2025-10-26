@@ -43,16 +43,21 @@ public class CursoController {
 
         if(!cursos.isEmpty()){
             for (Curso c : cursos) {
-                System.out.println("===========");
-                System.out.println("Cod Curso: " + c.getCodcurso() );
-                System.out.println("Nome Curso: " + c.getNomecurso() );
-                System.out.println("Turno:" + c.getTurno() );
-                System.out.println("Disciplina: ");
 
-                for(Disciplina d : c.getDisciplinas()) {
-                    System.out.print("  -" + d.getcoddisciplina());
+                int cursoExibido = -1;
+                cursoExibido  = c.getCodcurso();
+                if(c.getCodcurso() == cursoExibido){
+                    System.out.println("===========");
+                    System.out.println("Cod Curso: " + c.getCodcurso() );
+                    System.out.println("Nome Curso: " + c.getNomecurso() );
+                    System.out.println("Turno:" + c.getTurno() );
+
+                    for(Disciplina d : c.getDisciplinas()) {
+                        System.out.println("Disciplina: " + d.getnome());
+                    }
+                    System.out.println("===========");
                 }
-                System.out.println("===========");
+
             }
         }
         else {
@@ -94,6 +99,8 @@ public class CursoController {
 
     public void removerCurso(int codcurso){
 
+        atualizarLista();
+
         Curso cursoremover = null;
 
         for(Curso c : cursos){
@@ -124,6 +131,8 @@ public class CursoController {
     }
 
     public Curso consultarcodigocurso(int codigo){
+        atualizarLista();
+
         for(Curso c : cursos){
             if (c.getCodcurso() == codigo){
                 return c;
@@ -131,6 +140,18 @@ public class CursoController {
         }
         return null;
     }
+
+//    public void verDisciplinasPorAluno(int matricula){
+//
+//        List<Disciplina> listadisciplina = disciplinaDAO.consultar();
+//
+//        for (Disciplina d : listadisciplina) {
+//            if (){
+//                System.out.println(d.getnome());
+//            }
+//        }
+//    }
+
 
     // ATUALIZA LISTA
 

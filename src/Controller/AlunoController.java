@@ -44,6 +44,7 @@ public class AlunoController {
 
     public void consultarAluno(){
 
+        cursoController.atualizarLista();
        atualizalista();
 
         if(!alunos.isEmpty()){
@@ -53,7 +54,7 @@ public class AlunoController {
              System.out.println("Nome: " + aluno.getNomeAluno());
              System.out.println("Idade: " + aluno.getIdade());
              System.out.println("Curso: " + aluno.getCurso());
-             System.out.println("Disciplinas Matriculada: " + " ");
+             System.out.println("Disciplinas Matriculada: " + aluno.getCurso().getDisciplinas() );
              System.out.println("==============");
          }
      }
@@ -74,7 +75,6 @@ public class AlunoController {
         }
 
         if(alunoremover != null){
-            alunos.remove(alunoremover);
             alunoDAO.deletar(alunoremover);
         }
         else{
@@ -83,6 +83,9 @@ public class AlunoController {
     }
 
     public void atualizarAlunoc(int matricula,int codcurso){
+
+       atualizalista();
+
         Aluno alunoatualizar =  null;
         Curso cursoexistente = cursoController.consultarcodigocurso(codcurso);
 
@@ -103,12 +106,15 @@ public class AlunoController {
             return;
         }
             alunoatualizar.setCurso(cursoexistente);
-            alunoDAO.atualizar(alunoatualizar);
+            alunoDAO.atualizarCursoAluno(alunoatualizar);
 
     }
 
 
     public void atualizarAluno(int matricula,String nome, int idade){
+
+     atualizalista();
+
         Aluno alunoatualizar =  null;
 
         for(Aluno a : alunos){
@@ -139,7 +145,10 @@ public class AlunoController {
 
     //VALIDAÇOES
 
-    public static boolean verificamatricula(int matricula){
+    public boolean verificamatricula(int matricula){
+
+        atualizalista();
+
         for (Aluno aluno : alunos) {
             if (aluno.getMatricula() == matricula) {
                 return true;
