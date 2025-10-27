@@ -45,7 +45,8 @@ public class AlunoController {
     public void consultarAluno(){
 
         cursoController.atualizarLista();
-       atualizalista();
+        atualizalista();
+
 
         if(!alunos.isEmpty()){
          for (Aluno aluno : alunos) {
@@ -54,7 +55,9 @@ public class AlunoController {
              System.out.println("Nome: " + aluno.getNomeAluno());
              System.out.println("Idade: " + aluno.getIdade());
              System.out.println("Curso: " + aluno.getCurso());
-             System.out.println("Disciplinas Matriculada: " + aluno.getCurso().getDisciplinas() );
+             System.out.println("Disciplinas :");
+             cursoController.consultarDisciplinasCurso(aluno.getCurso());
+             System.out.println(" ");
              System.out.println("==============");
          }
      }

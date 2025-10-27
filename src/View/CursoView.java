@@ -50,6 +50,11 @@ public class CursoView {
                         System.out.println("Digite o codigo das Disciplina, caso nao tenha mais digite 0 ");
                         coddisciplina = input.nextInt();
 
+                        if (!disciplinaController.codExiste(coddisciplina)){
+                            System.out.println("Codigo: " + coddisciplina +" não existe no sistema");
+                            break;
+                        }
+
                         if (coddisciplina != 0 ) {
                             Disciplina d = new Disciplina(coddisciplina,null,0);
                             disciplinas.add(d);
@@ -74,7 +79,6 @@ public class CursoView {
                     System.out.print("-> ");
                     int opcaoa = input.nextInt();
                     switch(opcaoa){
-
                         case 1 -> {
 
                             System.out.println("Digite o CodCurso a ser Atualizado:");

@@ -13,6 +13,8 @@ public class CursoController {
     private static final List<Curso> cursos = new ArrayList<>();
     CursoDAO  cursoDAO = new CursoDAO();
     DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
+    DisciplinaController disciplinaController = new DisciplinaController();
+
 
     public void cadastrarCurso(int codcurso, String nomecurso, String turno,List<Disciplina> disciplinas) {
 
@@ -39,31 +41,45 @@ public class CursoController {
 
     public void consultarCursos(){
 
-        atualizarLista();
+       atualizarLista();
 
         if(!cursos.isEmpty()){
-            for (Curso c : cursos) {
 
-                int cursoExibido = -1;
-                cursoExibido  = c.getCodcurso();
-                if(c.getCodcurso() == cursoExibido){
+            int cursoExibido = -1;
+            for (Curso c : cursos) {
+                if(c.getCodcurso() != cursoExibido){
+
+                    cursoExibido  = c.getCodcurso();
+
                     System.out.println("===========");
                     System.out.println("Cod Curso: " + c.getCodcurso() );
                     System.out.println("Nome Curso: " + c.getNomecurso() );
-                    System.out.println("Turno:" + c.getTurno() );
-
+                    System.out.println("Turno: " + c.getTurno() );
+                    System.out.print("Disciplinas: ");
                     for(Disciplina d : c.getDisciplinas()) {
-                        System.out.println("Disciplina: " + d.getnome());
+                        System.out.print("[" + d.getcoddisciplina() + "," + d.getnome() + "]");
                     }
+                    System.out.println(" ");
                     System.out.println("===========");
                 }
-
             }
         }
         else {
            System.out.println("Nao ha cursos disponiveis!");
         }
     }
+
+    public void consultarDisciplinasCurso(Curso curso){
+
+        for(Curso c : cursos ){
+            if(c.getCodcurso() == curso.getCodcurso()){
+                for(Disciplina d : c.getDisciplinas()) {
+                    System.out.print(" " + d.getnome());
+                }
+            }
+        }
+    }
+
 
     public void atualizarCurso(int codcurso,String nome,String turno) {
 

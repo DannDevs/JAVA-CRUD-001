@@ -26,8 +26,12 @@ public class DisciplinaView {
                     System.out.println("Digite o Codigo");
                     System.out.print("-> ");
                     int codigo = sc.nextInt();
-                    if (!disciplinaController.validaCod(codigo)){
+                    if(!disciplinaController.validaCod(codigo)){
                         System.out.println("Cod Invalido");
+                        break;
+                    }
+                    if(disciplinaController.codExiste(codigo)){
+                        System.out.println("Cod da Disciplina ja existe no sistema");
                         break;
                     }
                     sc.nextLine();
@@ -64,7 +68,6 @@ public class DisciplinaView {
                     System.out.print("Disciplinas Disponiveis: ");
                     disciplinaController.consultarCodigos();
                     System.out.println();
-
                     System.out.println("Digite o Codigo da disciplina:");
                     System.out.print("-> ");
                     int codigo = sc.nextInt();
