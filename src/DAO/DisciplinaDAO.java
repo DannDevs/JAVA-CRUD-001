@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Curso;
 import libs.Conexao;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,33 @@ public class DisciplinaDAO {
 
     }
 
+    public List<Disciplina> listarDisciplinasCurso(Curso curso){
+
+        String sql =  "SELECT d.coddisciplina,d.nome FROM disciplina d" +
+                "join cursodisciplina a on" +
+                "d.coddisciplina = a.coddisciplina" +
+                "where codcurso = ?";
+        List<Disciplina> disciplinasC = null;
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()
+                ){
+            stmt.setInt(1, curso.getCodcurso());
+            while(rs.next()) {
+                rs.getInt("coddisciplina");
+                rs.getString("nome");
+            }
+
+        } catch(SQLException ex){
+            throw new RuntimeException("Erro ao listar " + ex.getMessage());
+        }
+
+        return disciplinasC;
+
+    }
+
+
     public Disciplina consultarDisciplina(int codDisciplina) {
         String sql = "SELECT * FROM disciplina WHERE coddisciplina = ?";
         Disciplina disciplina = null;
@@ -55,9 +83,7 @@ public class DisciplinaDAO {
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setInt(1, codDisciplina);
-
             ResultSet rs = stmt.executeQuery();
-
             if (rs.next()) {
                 disciplina = new Disciplina(
                         rs.getInt("coddisciplina"),
