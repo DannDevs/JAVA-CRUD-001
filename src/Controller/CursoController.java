@@ -13,7 +13,6 @@ public class CursoController {
     private static final List<Curso> cursos = new ArrayList<>();
     CursoDAO  cursoDAO = new CursoDAO();
     DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
-    DisciplinaController disciplinaController = new DisciplinaController();
 
 
     public void cadastrarCurso(int codcurso, String nomecurso, String turno,List<Disciplina> disciplinas) {
@@ -69,17 +68,21 @@ public class CursoController {
         }
     }
 
-    public void consultarDisciplinasCurso(Curso curso){
+    public void consultarDisciplinasCurso(Curso cursod){
+        atualizarLista();
 
+        int cursoExibido = -1;
         for(Curso c : cursos ){
-            if(c.getCodcurso() == curso.getCodcurso()){
-                for(Disciplina d : c.getDisciplinas()) {
-                    System.out.print(" " + d.getnome());
+            if(c.getCodcurso() == cursod.getCodcurso()){
+                if(c.getCodcurso() != cursoExibido){
+                    cursoExibido  = c.getCodcurso();
+                    for(Disciplina d : c.getDisciplinas()) {
+                        System.out.print("[" + d.getcoddisciplina() + "," + d.getnome() + "] ");
+                    }
                 }
             }
         }
     }
-
 
     public void atualizarCurso(int codcurso,String nome,String turno) {
 

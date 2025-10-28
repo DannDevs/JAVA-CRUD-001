@@ -37,8 +37,24 @@ public class CursoDisciplinaDAO {
         } catch (SQLException ex){
             throw new RuntimeException("Erro ao deletar CursoDisciplina" + ex.getMessage());
         }
+    }
+    public void removerDisciplinaEs(int coddisciplina){
+        String sql = "DELETE FROM cursodisciplina where coddisciplina = ?";
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+                ){
+            stmt.setInt(1,coddisciplina);
+            stmt.execute();
+
+        } catch(SQLException ex){
+            throw new RuntimeException("Erro ao deletar CursoDisciplina" + ex.getMessage());
+        }
+
+
 
     }
+
 
 
 

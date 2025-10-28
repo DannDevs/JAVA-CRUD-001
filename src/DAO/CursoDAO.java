@@ -48,8 +48,8 @@ public class CursoDAO {
                 "d.nome AS nomedisciplina, " +
                 "d.cargahoraria " +
                 "FROM curso c " +
-                "JOIN cursodisciplina e ON c.codcurso = e.codcurso " +
-                "JOIN disciplina d ON d.coddisciplina = e.coddisciplina " +
+                "LEFT JOIN cursodisciplina e ON c.codcurso = e.codcurso " +
+                "LEFT JOIN disciplina d ON d.coddisciplina = e.coddisciplina " +
                 "ORDER BY c.codcurso";
 
 

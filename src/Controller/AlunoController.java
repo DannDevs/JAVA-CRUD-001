@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.AlunoDAO;
+import DAO.DisciplinaDAO;
 import Model.Aluno;
 import Model.Curso;
 import Model.Disciplina;
@@ -13,6 +14,7 @@ public class AlunoController {
     private static final List<Aluno> alunos = new ArrayList<>();
     CursoController cursoController = new CursoController();
     AlunoDAO  alunoDAO = new AlunoDAO();
+    DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
 
     public  void cadastrarAluno(int matricula,String nome, int idade,int codcurso) {
@@ -43,7 +45,6 @@ public class AlunoController {
     }
 
     public void consultarAluno(){
-
         cursoController.atualizarLista();
         atualizalista();
 
@@ -55,9 +56,9 @@ public class AlunoController {
              System.out.println("Nome: " + aluno.getNomeAluno());
              System.out.println("Idade: " + aluno.getIdade());
              System.out.println("Curso: " + aluno.getCurso());
-             System.out.println("Disciplinas :");
+             System.out.print("Disciplinas :");
              cursoController.consultarDisciplinasCurso(aluno.getCurso());
-             System.out.println(" ");
+             System.out.println("     ");
              System.out.println("==============");
          }
      }

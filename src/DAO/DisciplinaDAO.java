@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class DisciplinaDAO {
 
-
+CursoDisciplinaDAO cursoDisciplinaDAO = new CursoDisciplinaDAO();
 
     public void salvar(Disciplina disciplina){
 
@@ -128,8 +128,12 @@ public class DisciplinaDAO {
 
         try (Connection conn = new Conexao().conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);) {
+
+            cursoDisciplinaDAO.removerDisciplinaEs(codDisciplina);
+
             stmt.setInt(1, codDisciplina);
             stmt.execute();
+
             System.out.println("Disciplina excluida com sucesso");
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao Excluir " + e.getMessage());
