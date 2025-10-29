@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.CursoDAO;
+import DAO.CursoDisciplinaDAO;
 import DAO.DisciplinaDAO;
 import Model.Curso;
 import Model.Disciplina;
@@ -12,6 +13,8 @@ public class CursoController {
 
     private static final List<Curso> cursos = new ArrayList<>();
     CursoDAO  cursoDAO = new CursoDAO();
+    CursoDisciplinaDAO cursoDisciplinaDAO = new  CursoDisciplinaDAO();
+    DisciplinaController disciplinaController = new DisciplinaController();
     DisciplinaDAO disciplinaDAO = new DisciplinaDAO();
 
 
@@ -29,7 +32,8 @@ public class CursoController {
         }
         for (Disciplina d : disciplinas) {
             if(disciplinaDAO.consultarDisciplina(d.getcoddisciplina()) == null){
-                System.out.println("Disciplina ja foi cadastrado");
+                System.out.println("Disciplina não está no sistema,Favor cadastrar denovo o curso");
+                return;
             }
         }
 
@@ -55,9 +59,14 @@ public class CursoController {
                     System.out.println("Nome Curso: " + c.getNomecurso() );
                     System.out.println("Turno: " + c.getTurno() );
                     System.out.print("Disciplinas: ");
-                    for(Disciplina d : c.getDisciplinas()) {
-                        System.out.print("[" + d.getcoddisciplina() + "," + d.getnome() + "]");
-                    }
+                        for(Disciplina d : c.getDisciplinas()) {
+                            if(d.getcoddisciplina() != 0){
+                                System.out.print("[" + d.getcoddisciplina() + "," + d.getnome() + "]");
+                            }
+                            else{
+                                System.out.print("Sem Disciplinas a exibir");
+                            }
+                        }
                     System.out.println(" ");
                     System.out.println("===========");
                 }
@@ -77,7 +86,13 @@ public class CursoController {
                 if(c.getCodcurso() != cursoExibido){
                     cursoExibido  = c.getCodcurso();
                     for(Disciplina d : c.getDisciplinas()) {
-                        System.out.print("[" + d.getcoddisciplina() + "," + d.getnome() + "] ");
+                       if (d.getcoddisciplina() != 0){
+                           System.out.print("[" + d.getcoddisciplina() + "," + d.getnome() + "] ");
+                       }
+                       else {
+                           System.out.print("Sem Disciplinas a exibir");
+                       }
+
                     }
                 }
             }
@@ -90,9 +105,11 @@ public class CursoController {
 
         if (!validaCod(codcurso)) {
             System.out.println("Curso nao existe");
+            return;
         }
         if (validaNome(nome)) {
             System.out.println("Nome invalido");
+            return;
         }
         Curso cursoatualizar = null;
 
@@ -114,6 +131,34 @@ public class CursoController {
     }
     public void atualizarDisciplina(int codcurso,int coddisciplina){
 
+        atualizarLista();
+
+        if(!validaCod(codcurso)){
+            System.out.println("Curso nao existe!");
+        }
+        if(!disciplinaController.codExiste(coddisciplina)){
+            System.out.println("Disciplina não existente no sistema!");
+        }
+
+        cursoDisciplinaDAO.atualizarCursoDisciplinas(codcurso,coddisciplina);
+
+    }
+
+    public void removerDisciplina(int codcurso,int coddisciplina){
+
+        atualizarLista();
+
+        if(!validaCod(codcurso)){
+            System.out.println("Curso nao existe");
+            return;
+        }
+
+        if(!disciplinaController.validaCod(coddisciplina)) {
+            System.out.println("Cod Disciplina Nao existe");
+            return;
+        }
+
+        cursoDisciplinaDAO.removerDisciplinaDoCurso(codcurso,coddisciplina);
     }
 
 

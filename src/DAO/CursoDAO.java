@@ -127,15 +127,11 @@ public class CursoDAO {
 
             stmt.setInt(1, curso.getCodcurso());
             stmt.executeUpdate();
-            System.out.println("Curso atualizado com sucesso");
+            System.out.println("Curso deletado com sucesso");
 
         } catch(SQLException ex){
             throw new RuntimeException("Erro ao deletar: " + ex.getMessage());
         }
-
-
-
-
-    };
+    }
 }
 

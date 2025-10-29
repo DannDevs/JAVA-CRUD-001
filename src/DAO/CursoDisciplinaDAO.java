@@ -26,14 +26,43 @@ public class CursoDisciplinaDAO {
         }
     }
 
-    public void atualizarCursoDisciplinas(Curso curso){
-        String sql = "";
+    public void atualizarCursoDisciplinas(int codcurso, int coddisciplina){
+        String sql = "INSERT INTO cursodisciplina (codcurso,coddisciplina) VALUES(?,?)";
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt =  conn.prepareStatement(sql)){
+            stmt.setInt(1,codcurso);
+            stmt.setInt(2,coddisciplina);
+
+            stmt.execute();
+
+            System.out.println("Disciplina Inserida com sucesso!");
+        } catch(SQLException ex){
+            throw new RuntimeException("Erro ao Atualizar a DisciplinaCurso: " + ex.getMessage());
+        }
+
 
 
     }
 
+    public void removerDisciplinaDoCurso(int curso,int disciplina){
+        String sql = "DELETE from cursodisciplina " +
+                "where codcurso = ? " +
+                "AND coddisciplina = ?";
 
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql))
+        {
+            stmt.setInt(1,curso);
+            stmt.setInt(2,disciplina);
+            stmt.execute();
+            System.out.println("Disciplina Foi removida do curso!");
 
+        } catch(SQLException ex){
+            throw new RuntimeException("Nao Foi Possivel remover: " + ex.getMessage());
+        }
+
+    }
 
     public void removerCursoDisciplina(int curso){
         String sql = "DELETE FROM cursodisciplina WHERE codcurso = ?";

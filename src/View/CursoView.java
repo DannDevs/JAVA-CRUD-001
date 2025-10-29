@@ -52,16 +52,19 @@ public class CursoView {
                         coddisciplina = input.nextInt();
 
                         if (!disciplinaController.codExiste(coddisciplina)){
-                            System.out.println("Codigo: " + coddisciplina +" não existe no sistema");
-                            break;
+                            if(coddisciplina == 0){
+                                System.out.println(" ");
+                            }
+                            else {
+                                System.out.println("Codigo: " + coddisciplina +" não existe no sistema");
+                            }
                         }
-
                         if (coddisciplina != 0 ) {
                             Disciplina d = new Disciplina(coddisciplina,null,0);
                             disciplinas.add(d);
-
                         }
                     } while (coddisciplina != 0);
+
                     cursoController.cadastrarCurso(idcurso,nome,turno,disciplinas);
                 }
                 case 2 -> cursoController.consultarCursos();
@@ -94,22 +97,38 @@ public class CursoView {
 
                             Curso cursoinsert = new Curso(codcurso,null,null);
                             System.out.print("Disciplinas do Curso: ");
-
                             cursoController.consultarDisciplinasCurso(cursoinsert);
+                            System.out.println(" ");
 
-                            System.out.println("Digite o codigo da disciplina a atualizar");
+                            System.out.println("Deseja Remover ou Adicionar uma disciplina? A/R");
                             System.out.print("-> ");
-                            int coddisciplina = input.nextInt();
-                            input.nextLine();
+                            String escolhaAD = input.nextLine();
 
-                            if(!disciplinaController.codExiste(coddisciplina)){
-                                System.out.println("Cod da Disciplina nao existe no sistema");
-                                break;
+                            if(escolhaAD.equals("A") || escolhaAD.equals("a")){
+                                System.out.println("Digite o codigo da disciplina a adicionar: ");
+                                System.out.print("-> ");
+                                int coddisciplina = input.nextInt();
+                                input.nextLine();
+
+                                if(!disciplinaController.codExiste(coddisciplina)){
+                                    System.out.println("Cod da Disciplina nao existe no sistema");
+                                    break;
+                                }
+                                cursoController.atualizarDisciplina(codcurso,coddisciplina);
                             }
+                            else if(escolhaAD.equals("r") || escolhaAD.equals("R")){
+                                System.out.println("Digite o codigo da disciplina a remover: ");
+                                System.out.print("-> ");
+                                int coddisciplina = input.nextInt();
 
+                                if(!disciplinaController.codExiste(coddisciplina)){
+                                    System.out.println("Cod da Disciplina nao existe no sistema");
+                                    break;
+                                }
 
-                            cursoController.atualizarDisciplina(codcurso,coddisciplina);
+                                cursoController.removerDisciplina(codcurso,coddisciplina);
                             }
+                        }
                         else if (escolhaAT.equals("C") || escolhaAT.equals("c")) {
                             System.out.println("Digite o novo nome do curso");
                             System.out.print("-> ");

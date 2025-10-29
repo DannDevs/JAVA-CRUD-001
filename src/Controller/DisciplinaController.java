@@ -140,7 +140,7 @@ public class DisciplinaController {
         return nome == null || nome.isEmpty();
     }
 
-    public boolean validaCod(int codDisciplina) { return codDisciplina >= 0; }
+    public boolean validaCod(int codDisciplina) { return codDisciplina > 0; }
 
     public boolean validaCargaHorario(int carga) {return carga <= 0;  }
 
