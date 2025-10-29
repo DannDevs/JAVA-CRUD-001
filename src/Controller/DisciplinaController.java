@@ -146,9 +146,9 @@ public class DisciplinaController {
 
     public boolean codExiste(int codigodisciplina) {
 
-        List<Disciplina> listaDisciplina = dao.consultar();
+        atualizaLista();
 
-        for (Disciplina d : listaDisciplina ) {
+        for (Disciplina d : disciplina) {
             if (codigodisciplina == d.getcoddisciplina()) {
                 return true;
             }

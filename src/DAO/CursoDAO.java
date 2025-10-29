@@ -1,6 +1,7 @@
 package DAO;
 
 import Model.Curso;
+import Model.CursoDisciplina;
 import Model.Disciplina;
 import libs.Conexao;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class CursoDAO {
 
+    CursoDisciplinaDAO cursoDisciplina = new CursoDisciplinaDAO();
 
     public void salvar(Curso curso) {
         String sql = "INSERT INTO curso(codcurso,nome,turno) VALUES (?,?,?)";
@@ -97,9 +99,42 @@ public class CursoDAO {
         return cursos;
     }
     public void atualizar(Curso curso) {
+        String sql = "UPDATE curso SET nome = ?, turno = ? WHERE codcurso = ?";
 
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+
+            stmt.setString(1, curso.getNomecurso());
+            stmt.setString(2, curso.getTurno());
+            stmt.setInt(3, curso.getCodcurso());
+            stmt.executeUpdate();
+            System.out.println("Curso atualizado com sucesso");
+
+        } catch (SQLException ex){
+            throw new RuntimeException("Erro ao atualizar: " + ex.getMessage());
+        }
     }
+
     public void deletar(Curso curso) {
+
+        String sql = "DELETE FROM curso WHERE codcurso = ?";
+
+        try(Connection conn = new Conexao().conectar();
+            PreparedStatement stmt = conn.prepareStatement(sql)
+                ){
+
+            cursoDisciplina.removerCursoDisciplina(curso.getCodcurso());
+
+            stmt.setInt(1, curso.getCodcurso());
+            stmt.executeUpdate();
+            System.out.println("Curso atualizado com sucesso");
+
+        } catch(SQLException ex){
+            throw new RuntimeException("Erro ao deletar: " + ex.getMessage());
+        }
+
+
+
 
     };
 }

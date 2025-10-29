@@ -2,6 +2,7 @@ package View;
 
 import Controller.CursoController;
 import Controller.DisciplinaController;
+import Model.Curso;
 import Model.Disciplina;
 
 import java.util.ArrayList;
@@ -75,27 +76,41 @@ public class CursoView {
                     cursoController.removerCurso(codremover);
                 }
                 case 4 -> {
-                    System.out.println("Digite 1 para Atualizar as disciplinas e 2 para Atualizar os Dados curso");
+                    System.out.println("Digite o CodCurso a Atualizar: ");
                     System.out.print("-> ");
-                    int opcaoa = input.nextInt();
-                    switch(opcaoa){
-                        case 1 -> {
+                    int codcurso = input.nextInt();
+                    input.nextLine();
 
-                            System.out.println("Digite o CodCurso a ser Atualizado:");
-                            System.out.print("-> ");
-                            int codcurso = input.nextInt();
+                    if(!cursoController.validaCod(codcurso)){
+                        System.out.println("O Codigo curso nao está no sistema!");
+                        break;
+                    }
+
+                    System.out.println("Deseja Atualizar os Dados do Curso ou da Disciplina?: C/D");
+                    System.out.print("-> ");
+                    String escolhaAT = input.nextLine();
+
+                        if(escolhaAT.equals("D") || escolhaAT.equals("d")){
+
+                            Curso cursoinsert = new Curso(codcurso,null,null);
+                            System.out.print("Disciplinas do Curso: ");
+
+                            cursoController.consultarDisciplinasCurso(cursoinsert);
+
                             System.out.println("Digite o codigo da disciplina a atualizar");
                             System.out.print("-> ");
                             int coddisciplina = input.nextInt();
-                            System.out.println("Disciplinas disponiveis: ");
-                            //disciplinaController.exibirDisciplinasDisponiveis();
-                            cursoController.atualizarDisciplina(codcurso,coddisciplina);
-                        }
-                        case 2 -> {
+                            input.nextLine();
 
-                            System.out.println("Digite o CodCurso a ser Atualizado:");
-                            System.out.print("-> ");
-                            int codcurso = input.nextInt();
+                            if(!disciplinaController.codExiste(coddisciplina)){
+                                System.out.println("Cod da Disciplina nao existe no sistema");
+                                break;
+                            }
+
+
+                            cursoController.atualizarDisciplina(codcurso,coddisciplina);
+                            }
+                        else if (escolhaAT.equals("C") || escolhaAT.equals("c")) {
                             System.out.println("Digite o novo nome do curso");
                             System.out.print("-> ");
                             String nome = input.nextLine();
@@ -104,7 +119,9 @@ public class CursoView {
                             String turno = input.nextLine();
                             cursoController.atualizarCurso(codcurso,nome,turno);
                         }
-                    }
+                        else{
+                            System.out.println("Opcao invalida");
+                        }
                 }
                 case 5 -> MenuView.menuExibir();
                 default ->  System.out.println("Opcao invalida");

@@ -1,6 +1,7 @@
 package DAO;
 
-import Model.CursoDisciplina;
+
+import Model.Curso;
 import libs.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,14 +25,23 @@ public class CursoDisciplinaDAO {
             throw new RuntimeException("Erro ao inserir CursoDisciplina" + ex.getMessage());
         }
     }
-    public void removerCursoDisciplina(int disciplina,  int curso ){
-        String sql = "DELETE FROM cursodisciplina WHERE codcurso = ? AND coddisciplina = ?";
+
+    public void atualizarCursoDisciplinas(Curso curso){
+        String sql = "";
+
+
+    }
+
+
+
+
+    public void removerCursoDisciplina(int curso){
+        String sql = "DELETE FROM cursodisciplina WHERE codcurso = ?";
 
         try(Connection conn = new Conexao().conectar();
             PreparedStatement stmt = conn.prepareStatement(sql)
                 ){
             stmt.setInt(1,curso);
-            stmt.setInt(2,disciplina);
             stmt.execute();
 
         } catch (SQLException ex){

@@ -88,7 +88,7 @@ public class CursoController {
 
         atualizarLista();
 
-        if (validaCod(codcurso)) {
+        if (!validaCod(codcurso)) {
             System.out.println("Curso nao existe");
         }
         if (validaNome(nome)) {
@@ -116,6 +116,7 @@ public class CursoController {
 
     }
 
+
     public void removerCurso(int codcurso){
 
         atualizarLista();
@@ -133,9 +134,7 @@ public class CursoController {
             return;
         }
 
-        cursos.remove(cursoremover);
         cursoDAO.deletar(cursoremover);
-        System.out.println("Curso removido com sucesso");
     }
 
     public void exibecoddisponiveis(){
@@ -160,16 +159,6 @@ public class CursoController {
         return null;
     }
 
-//    public void verDisciplinasPorAluno(int matricula){
-//
-//        List<Disciplina> listadisciplina = disciplinaDAO.consultar();
-//
-//        for (Disciplina d : listadisciplina) {
-//            if (){
-//                System.out.println(d.getnome());
-//            }
-//        }
-//    }
 
 
     // ATUALIZA LISTA
@@ -184,6 +173,9 @@ public class CursoController {
     // VALIDATES
 
     public boolean validaCod(int codcurso){
+
+        atualizarLista();
+
             for(Curso c : cursos){
                 if(c.getCodcurso() == codcurso){
                     return true;

@@ -1,7 +1,6 @@
 package View;
 
 import Controller.AlunoController;
-import Controller.CursoController;
 
 import java.util.Scanner;
 
@@ -10,7 +9,6 @@ public class AlunoView {
    public void menuAluno(){
 
        AlunoController alunoController = new AlunoController();
-       CursoController cursoController = new CursoController();
        Scanner input = new Scanner(System.in);
        int opcao;
 
